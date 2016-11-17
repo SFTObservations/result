@@ -1,0 +1,165 @@
+<!DOCTYPE HTML>
+<head>
+
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+
+  <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
+
+
+  <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
+
+
+      <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="js/bootstrap-table.js"></script>
+
+
+<script type='text/javascript'>//<![CDATA[
+$(window).load(function(){
+var data = [{
+        "sl no": "1",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373311' target='_blank'>SIO1373311</a>",
+        "description": "SFT-Security-Reskin: Sublist's under Sound, Video and game controller in Device security is not localized in Finnish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "2",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373310' target='_blank'>SIO1373310</a>",
+        "description": "SFT-security-Reskin: Text not localized under Audio input and outputs in Device Security for Finnish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "3",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373309' target='_blank'>SIO1373309</a>",
+        "description": "SFT-Security-Reskin: Under software devices in Device security it's not localized to Finnish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "4",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373303' target='_blank'>SIO1373303</a>",
+        "description": "SFT-Security-Reskin: Biometric devices hardware is not localized in Finnish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "5",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373285' target='_blank'>SIO1373285</a>",
+        "description": "SFT-Security-Reskin: Administrators is not localized in pop for Yes/No window for Finish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "6",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373276' target='_blank'>SIO1373276</a>",
+        "description": "SFT-Security-Reskin: Network adapters not showing in local language for Finnish under Device Security",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "7",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373135' target='_blank'>SIO1373135</a>",
+        "description": "SFT-Security-Reskin: Sublist under Smart cards from Device security tab is not Localized in Finnish",
+        "status":"Open",
+        "Pillar":"Security"
+},{
+        "sl no": "8",
+        "deliverable": "Localization",
+        "Application":"HP CSM Localization",
+        "OBS ID": "<a href='https://si.austin.hp.com/si/Observations/Details.aspx?slim=yes&offset=5.5&ObservationId=SIO1373112' target='_blank'>SIO1373112</a>",
+        "description": "SFT-Security Reskin: Devices listed under Software devices tab are coming in english for Finnish language",
+        "status":"Open",
+        "Pillar":"Security"
+
+}];
+
+$(function () {
+    $('#table').bootstrapTable({
+        data: data
+    });
+
+   $('.fixed-table-pagination').hide();
+   $('.dropdown-toggle').hide();
+
+$('#table td:nth-child(7)').addClass('filterBYPiller');
+
+$('#table th:nth-child(3)').hide();
+$('#table td:nth-child(3)').addClass('filterBYApp').hide();
+
+});
+
+ $('#filter1').change(function() { 
+        $("#table td.filterBYPiller:contains('" + $(this).val() + "')").parent().show();
+        $("#table td.filterBYPiller:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });
+
+
+ $('#filter2').change(function() { 
+        $("#table td.filterBYApp:contains('" + $(this).val() + "')").parent().show();
+        $("#table td.filterBYApp:not(:contains('" + $(this).val() + "'))").parent().hide();
+    });
+    
+});//]]> 
+   
+   
+
+
+</script>
+
+  <style>
+body{    background: rgb(235,241,223); min-width: 960px;}
+table{    background: #FFF;}
+   .form-control{ display: inline;    border-radius:0px;
+    width: auto;margin-bottom:20px;margin-left: 10px;}
+.fixed-table-container{border: none;}
+.fixed-table-container thead th:first-child { border:none !IMPORTANT; -webkit-border-top-left-radius:0px;}
+.row {
+    margin-right: 0px;
+    margin-left: -15px;
+font-size:18px;
+    margin-bottom: 30px;
+}
+
+</style>
+    
+    
+
+</head>
+<body>
+
+
+<div style="padding: 10px; ">
+<div class="row">
+  <div class="col-md-12">Observations</div>
+</div>
+<div class="pull-left search" style="margin-left: 75px !important;font-size: 16px;">Filter By Application<input id="filter2" class="form-control" type="text" placeholder=""></div>
+
+<div class="pull-right search" style="margin-right: 140px !important;font-size: 16px;">Filter By Pillers<input id="filter1" class="form-control" type="text" placeholder=""></div>
+
+    <table id="table" data-search="true" data-show-columns="true" data-pagination="true" data-height="600">
+        <thead style="background-color:rgb(183,221,232);">
+            <tr>
+                <th data-field="sl no" >Sl no</th>
+                <th data-field="deliverable">Deliverable</th>
+                <th data-field="Application">Application</th>
+                <th data-field="OBS ID" >OBS ID</th>
+                <th data-field="description">Description</th>
+                <th data-field="status">Status</th>
+                <th data-field="Pillar">Pillar</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+</body>
+</html>
