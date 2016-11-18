@@ -1,0 +1,33 @@
+@font-face {
+    font-family: 'HP Simplified W04 Regular';
+    src: url('../fonts/HPSimplifiedW04-Regular.eot');
+    src: local('HP Simplified W04 Regular'), local('HP Simplified W04 Regular'), url('../fonts/HPSimplifiedW04-Regular.ttf') format('truetype');
+}
+body {
+    font-family: HP Simplified w04 Regular;
+    background: rgb(235, 241, 223) !IMPORTANT;
+    min-width: 960px !IMPORTANT;
+}
+table {
+    background: #FFF !IMPORTANT;
+}
+.form-control {
+    display: inline !IMPORTANT;
+    border-radius: 0px !IMPORTANT;
+    width: auto !IMPORTANT;
+    margin-bottom: 20px !IMPORTANT;
+    margin-left: 10px !IMPORTANT;
+}
+.fixed-table-container {
+    border: none !IMPORTANT;
+}
+.fixed-table-container thead th:first-child {
+    border: none !IMPORTANT;
+    -webkit-border-top-left-radius: 0px !IMPORTANT;
+}
+.row {
+    margin-right: 0px !IMPORTANT;
+    margin-left: -15px !IMPORTANT;
+    font-size: 18px !IMPORTANT;
+    margin-bottom: 30px !IMPORTANT;
+}
