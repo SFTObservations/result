@@ -1,35 +1,570 @@
 <!DOCTYPE HTML>
-<html>
 <head>
+<meta name="viewport" content="initial-scale = 1.0,maximum-scale = 1.0" />
 <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 <link rel="stylesheet" type="text/css" href="css/bootstrap-table.css">
 <link rel="stylesheet" type="text/css" href="css/custom.css">
+<link rel="stylesheet" type="text/css" href="css/bootstrap-datepicker.css">
+<script type="text/javascript" src="js/Base.js"></script>
+<script type="text/javascript" src="js/Connectivity.js"></script>
+<script type="text/javascript" src="js/Managebility.js"></script>
+<script type="text/javascript" src="js/Security.js"></script>
+<script type="text/javascript" src="js/IoT.js"></script>
 <script type="text/javascript" src="js/data.js"></script>
 <script type="text/javascript" src="js/jquery-2.1.0.js"></script>
 <script type="text/javascript" src="js/bootstrap.min.js"></script>
 <script type="text/javascript" src="js/bootstrap-table.js"></script>
+<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="js/graph.js"></script>  
 <script type="text/javascript" src="js/index.js"></script>   
+
+
 </head>
 <body>
- <div style="padding: 10px; ">
+ <div>
   <div class="row">
-   <div class="col-md-12">Observations</div>
+   <div class="col-md-12">
+   <div class="panel panel-default">
+  <div class="panel-body">
+ <div class="col-md-12"><div class="col-md-5"><img src="images/hpi-logo.png" /></div><div class="col-md-7"><h3>HPI SFT Daily Status Reports</h3></div></div>
   </div>
-     <div class="pull-left search" style="margin-left: 75px !important;font-size: 16px;">Filter By Component<input id="filter2" class="form-control" type="text" placeholder=""></div>
-     <div class="pull-right search" style="margin-right: 140px !important;font-size: 16px;">Filter By Core Team<input id="filter1" class="form-control" type="text" placeholder=""></div>
-     <table id="table" data-search="true" data-show-columns="true" data-pagination="true" data-height="600">
-        <thead style="background-color:rgb(183,221,232);">
-            <tr>
-                <th data-field="CORE TEAM">Core Team</th>
-                <th data-field="OBS NUMBER" >OBS Number</th>
-                <th data-field="DESCRIPTION">Description</th>
-                <th data-field="COMPONENT">Component</th>
-                <th data-field="CURRENT STATE">Current State</th>
-                <th data-field="PRIORITY">Priority</th>
-                <th data-field="CREATE DATE">Create Date</th>
+  </div>
+</div>
+</div>
+     <!--<div class="pull-left search" style="margin-left: 75px !important;font-size: 16px;">Filter By Component<input id="filter2" class="form-control" type="text" placeholder=""></div>
+     <div class="pull-right search" style="margin-right: 140px !important;font-size: 16px;">Filter By Core Team<input id="filter1" class="form-control" type="text" placeholder=""></div>-->
+    
+<div class="col-md-12">
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+   <li role="presentation" class="active"><a href="#base" aria-controls="base" role="tab" data-toggle="tab">Base</a></li>
+    <li role="presentation"><a href="#connectivity" aria-controls="connectivity" role="tab" data-toggle="tab">Connectivity</a></li>
+	<li role="presentation"><a href="#managebility" aria-controls="managebility" role="tab" data-toggle="tab">Managebility</a></li>
+    <li role="presentation"><a href="#security" aria-controls="security" role="tab" data-toggle="tab">Security</a></li>
+	 <li role="presentation"><a href="#iot" aria-controls="iot" role="tab" data-toggle="tab">Workwise(IoT)</a></li>
+  </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane" id="security">
+	<div  class="col-md-6" id="calContainer">
+               <label for="openDatepick"  class="input-group-addon btn openDatepick"><span class="glyphicon glyphicon-calendar"></span></label>
+               <input id="openDatepick" type="text" class="date-picker form-control hasDatepicker">
+               <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Submit</button>
+	</div>
+		<table id="table1" class="filterable table-striped table-responsive" data-show-columns="true"  data-height="525">
+        <thead>
+		<tr>
+		<th data-field="pfdetails" colspan="3">Platform Details</th>			
+		<th data-field="osdetails" class="os-details" colspan="4">OS Details</th>
+		<th data-field="appdetails" class="application" colspan="2">Application Details</th>
+		<th data-field="testdetails" class="test-case" colspan="9">Test Case Details</th>
+		<th data-field="obsdetails" class="obs-details" colspan="2">OBS Details</th>
+        </tr>
+		<tr>
+			    <!--<th data-field="RAG_Status" class="plat-form">RAG Status</th>-->
+                <th data-field="Plat_Form" class="plat-form pf ">Plat Form<br/><select class="filter" onchange="getValue(this.value,tableId='table1',coloumnIndex='0', classname='filter')"></select></th>
+                <!--<th data-field="Platform_Year" class="plat-form">Platform Year</th>-->
+                <th data-field="HW_Phase" class="plat-form">HW phase</th>
+                <th data-field="BIOS_Version" class="plat-form biosv">BIOS Version<br/><select class="filter-biosv" onchange="getValue(this.value,tableId='table1',coloumnIndex='2', classname='filter-biosv')"></select></th>
+				<th data-field="OS" class="plat-form os-details">OS</th>
+                <th data-field="OS_Version" class="plat-form os-details">OS Version</th>
+				<th data-field="OS_Install_Type" class="plat-form os-details">OS Install Type</th>
+                <th data-field="Language" class="plat-form os-details">Language</th>
+                <th data-field="Application" class="application app-details">Application<br/><select class="filter-app" onchange="getValue(this.value,tableId='table1',coloumnIndex='7', classname='filter-app')"></select></th>
+                <th data-field="Application_version" class="application app-version-details">Application version<br/><select class="filter-appVerion" onchange="getValue(this.value,tableId='table1',coloumnIndex='8', classname='filter-appVerion')"></select></th>
+               	<th data-field="Test_Type" class="test-case">Test Type</th>            
+			    <th data-field="Total_Test_Cases" class="test-case">Total Test Cases</th>
+                <th data-field="Test_casess_Executed" class="test-case">Test casess Executed</th>
+                <th data-field="Pass" class="test-case">Pass</th>
+                <th data-field="Fail" class="test-case">Fail</th>
+				<th data-field="spi" class="test-case">SPI</th>
+				<th data-field="Percentage_Complete" class="test-case">Percentage Complete</th>
+				<th data-field="Start_Date" class="test-case">Start Date</th>
+                <th data-field="Target_Date" class="test-case">Target Date</th>
+				<th data-field="New_OBS" class="obs-details">New OBS</th>
+				<th data-field="Retested_OBS" class="obs-details retested-obs">Retested OBS</th>
+                <!--<th data-field="Phone_OS">Phone OS</th>
+                <th data-field="Bluetooth_Version">Bluetooth Vesrion</th>-->
             </tr>
         </thead>
     </table>
+	 <div class="row">
+   <div class="col-md-3 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                               Coreteam Status
+                            </div>
+ 
+   <div id="pieChart" class="chart"></div>
+   </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-4 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Highlights
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372916: Dogfood\Jolie\SI2\SKU5\BIOS 00.41\16WWJOAT6ap\Adhoc - TPM is lost.  Sent clarifications to Gordon.</p>
+<p>SIO1372171: Dogfood / Oldman / TPM was lost on a PV Unit </p>
+<p>Started Security: 2013 Bucket 3 HP Device Access Manager - 8.4.5.0.A.1 on Streep </p>
+</p>
+								
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-5 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Blockers
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372493, SIO1373935 , SIO1373940
+   Getting discovery system error(Scripts not signed) whole day, tried with a different SCCM setup - need to try tomorrow.
+</p>
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="connectivity">	
+	<div  class="col-md-6" id="calContainer">
+               <label for="date-picker-3"  id="" class="input-group-addon btn openDatepick"><span class="glyphicon glyphicon-calendar"></span></label>
+               <input for="" id="test" type="" class="date-picker form-control hasDatepicker">
+               <button type="button" class="btn btn-primary">Submit</button>
+	</div>
+	<table id="table2" class="filterable table-striped table-responsive" data-show-columns="true"  data-height="525">
+        <thead>
+		<tr>
+		<th data-field="pfdetails" colspan="3">Platform Details</th>			
+		<th data-field="osdetails" class="os-details" colspan="4">OS Details</th>
+		<th data-field="appdetails" class="application" colspan="2">Application Details</th>
+		<th data-field="testdetails" class="test-case" colspan="9">Test Case Details</th>
+		<th data-field="obsdetails" class="obs-details" colspan="2">OBS Details</th>
+        </tr>
+		<tr>
+			    <!--<th data-field="RAG_Status" class="plat-form">RAG Status</th>-->
+                <th data-field="Plat_Form" class="plat-form pf ">Plat Form<br/><select class="filter" onchange="getValue(this.value,tableId='table2',coloumnIndex='0', classname='filter')"></select></th>
+                <!--<th data-field="Platform_Year" class="plat-form">Platform Year</th>-->
+                <th data-field="HW_Phase" class="plat-form">HW phase</th>
+                <th data-field="BIOS_Version" class="plat-form biosv">BIOS Version<br/><select class="filter-biosv" onchange="getValue(this.value,tableId='table2',coloumnIndex='2')"></select></th>
+				<th data-field="OS" class="plat-form os-details">OS</th>
+                <th data-field="OS_Version" class="plat-form os-details">OS Version</th>
+				<th data-field="OS_Install_Type" class="plat-form os-details">OS Install Type</th>
+                <th data-field="Language" class="plat-form os-details">Language</th>
+                <th data-field="Application" class="application app-details">Application<br/><select class="filter-app" onchange="getValue(this.value,tableId='table2',coloumnIndex='7')"></select></th>
+                <th data-field="Application_version" class="application app-version-details">Application version<br/><select class="filter-appVerion" onchange="getValue(this.value,tableId='table2',coloumnIndex='8', classname='filter-appVerion')"></select></th>
+               	<th data-field="Test_Type" class="test-case">Test Type</th>            
+			    <th data-field="Total_Test_Cases" class="test-case">Total Test Cases</th>
+                <th data-field="Test_casess_Executed" class="test-case">Test casess Executed</th>
+                <th data-field="Pass" class="test-case">Pass</th>
+                <th data-field="Fail" class="test-case">Fail</th>
+				<th data-field="spi" class="test-case">SPI</th>
+				<th data-field="Percentage_Complete" class="test-case">Percentage Complete</th>
+				<th data-field="Start_Date" class="test-case">Start Date</th>
+                <th data-field="Target_Date" class="test-case">Target Date</th>
+				<th data-field="New_OBS" class="obs-details">New OBS</th>
+				<th data-field="Retested_OBS" class="obs-details retested-obs">Retested OBS</th>
+                <!--<th data-field="Phone_OS">Phone OS</th>
+                <th data-field="Bluetooth_Version">Bluetooth Vesrion</th>-->
+            </tr>
+        </thead>
+    </table>
+	<div class="row">
+   <div class="col-md-3 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                               Coreteam Status
+                            </div>
+ 
+   <div id="pieChart1" class="chart"></div>
+   </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-4 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Highlights
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372916: Dogfood\Jolie\SI2\SKU5\BIOS 00.41\16WWJOAT6ap\Adhoc - TPM is lost.  Sent clarifications to Gordon.</p>
+<p>SIO1372171: Dogfood / Oldman / TPM was lost on a PV Unit </p>
+<p>Started Security: 2013 Bucket 3 HP Device Access Manager - 8.4.5.0.A.1 on Streep </p>
+</p>
+								
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-5 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Blockers
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372493, SIO1373935 , SIO1373940
+   Getting discovery system error(Scripts not signed) whole day, tried with a different SCCM setup - need to try tomorrow.
+</p>
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>
+	</div>
+    <div role="tabpanel" class="tab-pane active" id="base">
+	<div  class="col-md-6" id="calContainer">
+               <label for="date-picker-3"  id="" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
+               <input for="" id="" type="text" class="date-picker form-control hasDatepicker">
+               <button type="button" class="btn btn-primary">Submit</button>
+	</div>
+	<table id="table3" class="filterable table-striped table-responsive" data-show-columns="true"  data-height="525">
+        <thead>
+		<tr>
+		<th data-field="pfdetails" colspan="3">Platform Details</th>			
+		<th data-field="osdetails" class="os-details" colspan="4">OS Details</th>
+		<th data-field="appdetails" class="application" colspan="2">Application Details</th>
+		<th data-field="testdetails" class="test-case" colspan="9">Test Case Details</th>
+		<th data-field="obsdetails" class="obs-details" colspan="2">OBS Details</th>
+        </tr>
+		<tr>
+			    <!--<th data-field="RAG_Status" class="plat-form">RAG Status</th>-->
+               <th data-field="Plat_Form" class="plat-form pf ">Plat Form<br/><select class="filter" onchange="getValue(this.value,tableId='table3',coloumnIndex='0', classname='filter')"></select></th>
+                <!--<th data-field="Platform_Year" class="plat-form">Platform Year</th>-->
+                <th data-field="HW_Phase" class="plat-form">HW phase</th>
+                <th data-field="BIOS_Version" class="plat-form biosv">BIOS Version<br/><select class="filter-biosv" onchange="getValue(this.value,tableId='table3',coloumnIndex='2')"></select></th>
+				<th data-field="OS" class="plat-form os-details">OS</th>
+                <th data-field="OS_Version" class="plat-form os-details">OS Version</th>
+				<th data-field="OS_Install_Type" class="plat-form os-details">OS Install Type</th>
+                <th data-field="Language" class="plat-form os-details">Language</th>
+                <th data-field="Application" class="application app-details">Application<br/><select class="filter-app" onchange="getValue(this.value,tableId='table3',coloumnIndex='7')"></select></th>
+                <th data-field="Application_version" class="application app-version-details">Application version<br/><select class="filter-appVerion" onchange="getValue(this.value,tableId='table3',coloumnIndex='8', classname='filter-appVerion')"></select></th>
+               	<th data-field="Test_Type" class="test-case">Test Type</th>            
+			    <th data-field="Total_Test_Cases" class="test-case">Total Test Cases</th>
+                <th data-field="Test_casess_Executed" class="test-case">Test casess Executed</th>
+                <th data-field="Pass" class="test-case">Pass</th>
+                <th data-field="Fail" class="test-case">Fail</th>
+				<th data-field="spi" class="test-case">SPI</th>
+				<th data-field="Percentage_Complete" class="test-case">Percentage Complete</th>
+				<th data-field="Start_Date" class="test-case">Start Date</th>
+                <th data-field="Target_Date" class="test-case">Target Date</th>
+				<th data-field="New_OBS" class="obs-details">New OBS</th>
+				<th data-field="Retested_OBS" class="obs-details retested-obs">Retested OBS</th>
+                <!--<th data-field="Phone_OS">Phone OS</th>
+                <th data-field="Bluetooth_Version">Bluetooth Vesrion</th>-->
+            </tr>
+        </thead>
+    </table>
+	<div class="row">
+   <div class="col-md-3 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                               Coreteam Status
+                            </div>
+ 
+   <div id="pieChart2" class="chart"></div>
+   </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-4 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Highlights
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372916: Dogfood\Jolie\SI2\SKU5\BIOS 00.41\16WWJOAT6ap\Adhoc - TPM is lost.  Sent clarifications to Gordon.</p>
+<p>SIO1372171: Dogfood / Oldman / TPM was lost on a PV Unit </p>
+<p>Started Security: 2013 Bucket 3 HP Device Access Manager - 8.4.5.0.A.1 on Streep </p>
+</p>
+								
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-5 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Blockers
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372493, SIO1373935 , SIO1373940
+   Getting discovery system error(Scripts not signed) whole day, tried with a different SCCM setup - need to try tomorrow.
+</p>
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>
+	</div>
+    <div role="tabpanel" class="tab-pane" id="managebility">
+	<div  class="col-md-6" id="calContainer">
+               <label for="date-picker-3"  id="" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
+               <input for="" id="" type="text" class="date-picker form-control hasDatepicker">
+               <button type="button" class="btn btn-primary">Submit</button>
+	</div>
+	<table id="table4" class="filterable table-striped table-responsive" data-show-columns="true"  data-height="525">
+        <thead>
+		<tr>
+		<th data-field="pfdetails" colspan="3">Platform Details</th>			
+		<th data-field="osdetails" class="os-details" colspan="4">OS Details</th>
+		<th data-field="appdetails" class="application" colspan="2">Application Details</th>
+		<th data-field="testdetails" class="test-case" colspan="9">Test Case Details</th>
+		<th data-field="obsdetails" class="obs-details" colspan="2">OBS Details</th>
+        </tr>
+		<tr>
+			    <!--<th data-field="RAG_Status" class="plat-form">RAG Status</th>-->
+                <th data-field="Plat_Form" class="plat-form pf ">Plat Form<br/><select class="filter" onchange="getValue(this.value,tableId='table4',coloumnIndex='0', classname='filter')"></select></th>
+                <!--<th data-field="Platform_Year" class="plat-form">Platform Year</th>-->
+                <th data-field="HW_Phase" class="plat-form">HW phase</th>
+                <th data-field="BIOS_Version" class="plat-form biosv">BIOS Version<br/><select class="filter-biosv" onchange="getValue(this.value,tableId='table4',coloumnIndex='2')"></select></th>
+				<th data-field="OS" class="plat-form os-details">OS</th>
+                <th data-field="OS_Version" class="plat-form os-details">OS Version</th>
+				<th data-field="OS_Install_Type" class="plat-form os-details">OS Install Type</th>
+                <th data-field="Language" class="plat-form os-details">Language</th>
+                <th data-field="Application" class="application app-details">Application<br/><select class="filter-app" onchange="getValue(this.value,tableId='table4',coloumnIndex='7')"></select></th>
+                <th data-field="Application_version" class="application app-version-details">Application version<br/><select class="filter-appVerion" onchange="getValue(this.value,tableId='table4',coloumnIndex='8', classname='filter-appVerion')"></select></th>
+               	<th data-field="Test_Type" class="test-case">Test Type</th>            
+			    <th data-field="Total_Test_Cases" class="test-case">Total Test Cases</th>
+                <th data-field="Test_casess_Executed" class="test-case">Test casess Executed</th>
+                <th data-field="Pass" class="test-case">Pass</th>
+                <th data-field="Fail" class="test-case">Fail</th>
+				<th data-field="spi" class="test-case">SPI</th>
+				<th data-field="Percentage_Complete" class="test-case">Percentage Complete</th>
+				<th data-field="Start_Date" class="test-case">Start Date</th>
+                <th data-field="Target_Date" class="test-case">Target Date</th>
+				<th data-field="New_OBS" class="obs-details">New OBS</th>
+				<th data-field="Retested_OBS" class="obs-details retested-obs">Retested OBS</th>
+                <!--<th data-field="Phone_OS">Phone OS</th>
+                <th data-field="Bluetooth_Version">Bluetooth Vesrion</th>-->
+            </tr>
+        </thead>
+    </table>
+	<div class="row">
+   <div class="col-md-3 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                               Coreteam Status
+                            </div>
+ 
+   <div id="pieChart3" class="chart"></div>
+   </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-4 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Highlights
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372916: Dogfood\Jolie\SI2\SKU5\BIOS 00.41\16WWJOAT6ap\Adhoc - TPM is lost.  Sent clarifications to Gordon.</p>
+<p>SIO1372171: Dogfood / Oldman / TPM was lost on a PV Unit </p>
+<p>Started Security: 2013 Bucket 3 HP Device Access Manager - 8.4.5.0.A.1 on Streep </p>
+</p>
+								
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-5 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Blockers
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372493, SIO1373935 , SIO1373940
+   Getting discovery system error(Scripts not signed) whole day, tried with a different SCCM setup - need to try tomorrow.
+</p>
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>
+	</div>
+	 <div role="tabpanel" class="tab-pane" id="iot">
+	<div  class="col-md-6" id="calContainer">
+               <label for="date-picker-3"  id="" class="input-group-addon btn"><span class="glyphicon glyphicon-calendar"></span></label>
+               <input for="" id="" type="text" class="date-picker form-control hasDatepicker">
+               <button type="button" class="btn btn-primary">Submit</button>
+	</div>
+	<table id="table5" class="filterable table-striped table-responsive" data-show-columns="true"  data-height="525">
+        <thead>
+		<tr>
+		<th data-field="pfdetails" colspan="3">Platform Details</th>			
+		<th data-field="osdetails" class="os-details" colspan="4">OS Details</th>
+		<th data-field="appdetails" class="application" colspan="2">Application Details</th>
+		<th data-field="testdetails" class="test-case" colspan="9">Test Case Details</th>
+		<th data-field="obsdetails" class="obs-details" colspan="2">OBS Details</th>
+		<th data-field="phonedetails" class="phone-details" colspan="3">Phone Details</th>
+        </tr>
+		<tr>
+			    <!--<th data-field="RAG_Status" class="plat-form">RAG Status</th>-->
+               <th data-field="Plat_Form" class="plat-form pf ">Plat Form<br/><select class="filter" onchange="getValue(this.value,tableId='table5',coloumnIndex='0', classname='filter')"></select></th>
+                <!--<th data-field="Platform_Year" class="plat-form">Platform Year</th>-->
+                <th data-field="HW_Phase" class="plat-form">HW phase</th>
+                <th data-field="BIOS_Version" class="plat-form biosv">BIOS Version<br/><select class="filter-biosv" onchange="getValue(this.value,tableId='table5',coloumnIndex='2')"></select></th>
+				<th data-field="OS" class="plat-form os-details">OS</th>
+                <th data-field="OS_Version" class="plat-form os-details">OS Version</th>
+				<th data-field="OS_Install_Type" class="plat-form os-details">OS Install Type</th>
+                <th data-field="Language" class="plat-form os-details">Language</th>
+                <th data-field="Application" class="application app-details">Application<br/><select class="filter-app" onchange="getValue(this.value,tableId='table5',coloumnIndex='7')"></select></th>
+                <th data-field="Application_version" class="application app-version-details">Application version<br/><select class="filter-appVerion" onchange="getValue(this.value,tableId='table5',coloumnIndex='8', classname='filter-appVerion')"></select></th>
+               	<th data-field="Test_Type" class="test-case">Test Type</th>            
+			    <th data-field="Total_Test_Cases" class="test-case">Total Test Cases</th>
+                <th data-field="Test_casess_Executed" class="test-case">Test casess Executed</th>
+                <th data-field="Pass" class="test-case">Pass</th>
+                <th data-field="Fail" class="test-case">Fail</th>
+				<th data-field="spi" class="test-case">SPI</th>
+				<th data-field="Percentage_Complete" class="test-case">Percentage Complete</th>
+				<th data-field="Start_Date" class="test-case">Start Date</th>
+                <th data-field="Target_Date" class="test-case">Target Date</th>
+				<th data-field="New_OBS" class="obs-details">New OBS</th>
+				<th data-field="Retested_OBS" class="obs-details retested-obs">Retested OBS</th>
+				<th data-field="make">Make</th>
+                <th data-field="Phone_OS">Phone OS</th>
+                <th data-field="Bluetooth_Version">Bluetooth Vesrion</th>
+            </tr>
+        </thead>
+    </table>
+	<div class="row">
+   <div class="col-md-3 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                               Coreteam Status
+                            </div>
+ 
+   <div id="pieChart4" class="chart"></div>
+   </div>
+  </div>
+  </div>
+  </div>
+   <div class="col-md-4 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Highlights
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372916: Dogfood\Jolie\SI2\SKU5\BIOS 00.41\16WWJOAT6ap\Adhoc - TPM is lost.  Sent clarifications to Gordon.</p>
+<p>SIO1372171: Dogfood / Oldman / TPM was lost on a PV Unit </p>
+<p>Started Security: 2013 Bucket 3 HP Device Access Manager - 8.4.5.0.A.1 on Streep </p>
+</p>
+								
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  <div class="col-md-5 bottom-container">
+	<div class="panel panel-default">
+  <div class="panel-body">
+      <div class="panel panel-primary">
+                            <div class="panel-heading ">
+                                Blockers
+                            </div>
+                            <div class="panel-body">
+                                <div class="panel-group" id="accordion">
+                                <p>SIO1372493, SIO1373935 , SIO1373940
+   Getting discovery system error(Scripts not signed) whole day, tried with a different SCCM setup - need to try tomorrow.
+</p>
+                                </div>
+                            </div>
+                        </div>
+  </div>
+  </div>
+  </div>
+  
+  </div>
+	</div>
+  </div>
+</div>
+</div>
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Data Details</h4>
+      </div>
+      <div class="modal-body">
+        <p>No Data Avilable To Display</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
 </div>
 </body>
 </html>
